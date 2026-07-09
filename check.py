@@ -20,10 +20,18 @@ def send(msg):
             "text": msg,
         },
         timeout=20,
+        verify=False
     )
 
+import urllib3
 
-response = requests.get(URL, timeout=30)
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+response = requests.get(
+    URL,
+    timeout=30,
+    verify=False
+)
 response.raise_for_status()
 
 soup = BeautifulSoup(response.text, "html.parser")
